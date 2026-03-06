@@ -1,22 +1,27 @@
-                      // ==UserScript==
-                      // @name         FMC CRID → Notes FAST v5 (Neon Green)
-                      // @namespace    http://tampermonkey.net/fmc-crid-fast
-                      // @version      5
-                      // @description  Ultra-fast CRID auto-fill with neon green UI
-                      // @match        https://trans-logistics-eu.amazon.com/*
-                      // @grant        GM_addStyle
-                      // @grant        GM_setValue
-                      // @grant        GM_getValue
-                      // @grant        GM_deleteValue
-                      // @grant        GM_addValueChangeListener
-                      // @run-at       document-idle
-                      // ==/UserScript==
+// ==UserScript==
+// @name         FMC CRID → Notes FAST v5 (Neon Green)
+// @namespace    http://tampermonkey.net/fmc-crid-fast
+// @version      5
+// @description  Ultra-fast CRID auto-fill with neon green UI
+ // @match        https://trans-logistics-eu.amazon.com/*
+// @grant        GM_addStyle
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_deleteValue
+// @grant        GM_addValueChangeListener
+// @run-at       document-idle
+ // ==/UserScript==
+
+/* LOADER CHECK */
+if (typeof GM_addValueChangeListener === "undefined") {
+    throw new Error("Unauthorized execution");
+}
 
   if(!location.hostname.includes("amazon.com")){
   throw new Error("Unauthorized environment");
   }
       
-      const LOCAL_VERSION = 3;
+const LOCAL_VERSION = 3;
       
       fetch("https://raw.githubusercontent.com/03-25-03-smt/crid-private/main/config.json")
       .then(r => r.json())
@@ -32,17 +37,17 @@
       
       });
       
-                  (async function(){
+(async function(){
                   
-                  const CONFIG_URL = "https://raw.githubusercontent.com/03-25-03-smt/crid-private/main/config.json";
+   const CONFIG_URL = "https://raw.githubusercontent.com/03-25-03-smt/crid-private/main/config.json";
                   
-                  const cfg = await fetch(CONFIG_URL).then(r=>r.json()).catch(()=>null);
+   const cfg = await fetch(CONFIG_URL).then(r=>r.json()).catch(()=>null);
                   
-                  console.log("CONFIG:", cfg);
+   console.log("CONFIG:", cfg);
                   
-                  if(!cfg){
-                  console.log("Config load failed");
-                  return;
+          if(!cfg){
+          console.log("Config load failed");
+          return;
                   }
                   
                   if(!cfg.enabled){
