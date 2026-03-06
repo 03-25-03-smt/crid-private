@@ -8,6 +8,55 @@
 // @run-at       document-idle
 // ==/UserScript==
 
+/* LOADER CHECK */
+if (
+typeof GM_addValueChangeListener === "undefined" ||
+typeof GM_setValue === "undefined"
+){
+throw new Error("Unauthorized execution");
+}
+
+/* DOMAIN CHECK */
+if(!location.hostname.includes("amazon.com")){
+throw new Error("Unauthorized environment");
+}
+
+(async function(){
+
+const LOCAL_VERSION = 3;
+
+const CONFIG_URL =
+"https://raw.githubusercontent.com/03-25-03-smt/crid-private/main/config.json";
+
+const cfg = await fetch(CONFIG_URL)
+.then(r=>r.json())
+.catch(()=>null);
+
+console.log("CONFIG:", cfg);
+
+if(!cfg){
+console.log("Config load failed");
+return;
+}
+
+if(!cfg.enabled){
+alert("Script disabled by developer");
+throw new Error("Script disabled");
+}
+
+if(cfg.version !== LOCAL_VERSION){
+location.reload();
+}
+
+const expire = new Date(cfg.expire).getTime();
+
+if(Date.now() > expire){
+alert("Script expired");
+throw new Error("Expired");
+}
+
+})();
+
 (function () {
     'use strict';
 
