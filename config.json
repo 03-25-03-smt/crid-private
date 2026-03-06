@@ -1,5 +1,5 @@
 {
- "enabled": true,
- "version": 1,
- "expire": "2099-01-01"
+  "enabled": true,
+  "version": 3,
+  "expire": "2099-01-01"
 }
