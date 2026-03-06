@@ -28,7 +28,7 @@
     throw new Error("Script disabled");
     }
     
-    const expire = new Date(cfg.expire).getTime();
+    const expire = new Date(cfg.expire + "T00:00:00Z").getTime();
     
     if(Date.now() > expire){
     alert("Script expired");
